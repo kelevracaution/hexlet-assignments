@@ -4,10 +4,16 @@ require 'forwardable'
 class Url
 
   include Comparable
+
   def <=>(other)
-    query_params <=> other.query_params
+    query_params <=> other.query_params &&
+      host <=> other.host &&
+      scheme <=> other.scheme &&
+      port <=> other.port
   end
-  
+
+
+
   def initialize(str)
     @url = URI(str)
   end
@@ -31,11 +37,4 @@ class Url
   end
 
 end
-
-yandex_url = Url.new 'http://yandex.ru?key=value&key2=value2'
-
-puts yandex_url.query_param(:key2, 'lala') # 'value2'
-puts yandex_url.query_param(:new, 'ehu') # 'ehu'
-puts yandex_url.query_param(:lalala) # nil
-puts yandex_url.query_param(:lalala, 'default') # 'default'
 
