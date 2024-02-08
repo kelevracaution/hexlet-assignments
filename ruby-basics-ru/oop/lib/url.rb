@@ -23,8 +23,8 @@ class Url
     @url.to_s
         .partition('?').last
         .split('&').each do |el|
-          key, value = el.split('=')
-          hash[key] = value
+         key, value = el.split('=')
+          hash[key.to_sym] = value
     end
     hash
   end
@@ -34,3 +34,5 @@ class Url
   end
 
 end
+yandex_url = Url.new 'http://yandex.ru?key=value&key2=value2'
+
